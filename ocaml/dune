@@ -1,0 +1,12 @@
+(executable
+ (name lib)
+ (libraries core_kernel async async_kernel)
+ (foreign_stubs (language c) (names cstub))
+ (flags :standard -linkall)
+ (modes (native shared_object))
+ (preprocess (pps ppx_jane)))
+
+(rule
+ (deps lib.so)
+ (target lib.dylib)
+ (action (copy lib.so lib.dylib)))
